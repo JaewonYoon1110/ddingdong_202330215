@@ -35,7 +35,7 @@ export default async function OrdersPage() {
               <div key={order.id} className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
                 {/* 날짜 */}
                 <div className="flex justify-between items-center mb-6">
-                  <p className="text-gray-400 text-sm">{new Date(order.createdAt).toLocaleString('ko-KR')}</p>
+                  <p className="text-gray-400 text-sm">{new Date(order.createdAt).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })}</p>
                   <p className="font-extrabold text-orange-500">{order.totalAmount.toLocaleString()}원</p>
                 </div>
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCart } from '@/store/useCart';
+import { useRouter } from 'next/navigation';
 
 export default function AddToCartButton({ 
   menu, 
@@ -11,7 +12,8 @@ export default function AddToCartButton({
   restaurantId: string;
   restaurantName: string;
 }) {
-  const { addItem, restaurantId: currentRestaurantId, restaurantName: currentRestaurantName } = useCart();
+  const { addItem, restaurantId: currentRestaurantId, restaurantName: currentRestaurantName, items } = useCart();
+  const router = useRouter();
 
   const handleClick = () => {
     if (currentRestaurantId && currentRestaurantId !== restaurantId) {
@@ -22,15 +24,26 @@ export default function AddToCartButton({
       useCart.getState().clearCart();
     }
     addItem({ id: menu.id, name: menu.name, price: menu.price }, restaurantId, restaurantName);
-    alert(`${menu.name}이(가) 장바구니에 담겼습니다!`);
   };
 
+  const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
+
   return (
-    <button
-      onClick={handleClick}
-      className="bg-orange-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-orange-600 transition"
-    >
-      담기
-    </button>
+    <div className="flex flex-col items-end gap-2">
+      <button
+        onClick={handleClick}
+        className="bg-orange-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-orange-600 transition"
+      >
+        담기
+      </button>
+      {cartCount > 0 && currentRestaurantId === restaurantId && (
+        <button
+          onClick={() => router.push('/cart')}
+          className="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm hover:bg-gray-800 transition"
+        >
+          장바구니 보기 ({cartCount})
+        </button>
+      )}
+    </div>
   );
 }
