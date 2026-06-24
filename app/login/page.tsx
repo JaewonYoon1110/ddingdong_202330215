@@ -35,11 +35,11 @@ export default function LoginPage() {
       });
 
       if (res.ok) {
-        alert('회원가입이 완료되었습니다. 로그인해주세요.');
         setEmail('');
         setPassword('');
         setName('');
         setIsLogin(true);
+        alert('회원가입이 완료되었습니다. 로그인해주세요.');
       } else {
         const data = await res.json();
         alert(data.message);
