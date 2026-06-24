@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 import AddToCartButton from './AddToCartButton';
+import CartFloatingButton from './CartFloatingButton';
 
 export default async function RestaurantPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -13,7 +14,7 @@ export default async function RestaurantPage({ params }: { params: Promise<{ id:
   if (!restaurant) notFound();
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto p-6 pb-24">
       <div className="mb-8 border-b pb-6">
         <h1 className="text-3xl font-extrabold text-gray-900 mb-2">{restaurant.name}</h1>
         <p className="text-gray-500">{restaurant.description}</p>
@@ -38,6 +39,8 @@ export default async function RestaurantPage({ params }: { params: Promise<{ id:
           </div>
         ))}
       </div>
+
+      <CartFloatingButton restaurantId={restaurant.id} />
     </div>
   );
 }
