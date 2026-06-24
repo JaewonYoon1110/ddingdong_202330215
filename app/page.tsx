@@ -1,35 +1,43 @@
 import Link from 'next/link';
 
 const CATEGORIES = [
-  { name: '치킨', emoji: '🍗', color: 'from-orange-400 to-red-400' },
-  { name: '피자', emoji: '🍕', color: 'from-red-400 to-pink-400' },
-  { name: '햄버거', emoji: '🍔', color: 'from-yellow-400 to-orange-400' },
-  { name: '한식', emoji: '🍚', color: 'from-green-400 to-emerald-400' },
-  { name: '중식', emoji: '🥡', color: 'from-red-500 to-orange-400' },
-  { name: '일식', emoji: '🍣', color: 'from-pink-400 to-rose-400' },
-  { name: '분식', emoji: '🌶️', color: 'from-red-400 to-yellow-400' },
-  { name: '양식', emoji: '🥩', color: 'from-amber-400 to-yellow-300' },
-  { name: '디저트', emoji: '🍰', color: 'from-pink-300 to-purple-400' },
+  { name: '치킨', icon: '🍗', desc: '바삭한 치킨' },
+  { name: '피자', icon: '🍕', desc: '화덕 & 오븐 피자' },
+  { name: '햄버거', icon: '🍔', desc: '수제 버거' },
+  { name: '한식', icon: '🍚', desc: '정갈한 한 상' },
+  { name: '중식', icon: '🥢', desc: '중화요리' },
+  { name: '일식', icon: '🍣', desc: '초밥 & 이자카야' },
+  { name: '분식', icon: '🌶️', desc: '떡볶이 & 김밥' },
+  { name: '양식', icon: '🥩', desc: '스테이크 & 파스타' },
+  { name: '디저트', icon: '🍰', desc: '빙수 & 케이크' },
 ];
 
 export default function Home() {
   return (
-    <main className="max-w-5xl mx-auto px-4 py-10">
-      <div className="mb-10">
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-2">지금 뭐 먹을까요? 🔔</h1>
-        <p className="text-gray-400 text-lg">카테고리를 선택해주세요</p>
+    <main>
+      {/* 히어로 배너 */}
+      <div className="bg-gradient-to-r from-orange-500 to-amber-400 px-8 py-12 mb-8">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-orange-100 text-sm font-medium mb-2">빠른 배달 · 무료 배달</p>
+          <h1 className="text-4xl font-extrabold text-white mb-2">지금 뭐 드실래요?</h1>
+          <p className="text-orange-100">주문하면 바로 출발, 따끈하게 배달해드려요</p>
+        </div>
       </div>
-      <div className="grid grid-cols-3 md:grid-cols-3 gap-6">
-        {CATEGORIES.map((cat) => (
-          <Link href={`/category/${cat.name}`} key={cat.name}>
-            <div className="rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-200 hover:-translate-y-1 cursor-pointer">
-              <div className={`bg-gradient-to-br ${cat.color} h-36 flex flex-col items-center justify-center gap-2`}>
-                <span className="text-6xl">{cat.emoji}</span>
-                <span className="text-white font-extrabold text-xl">{cat.name}</span>
-              </div>
-            </div>
-          </Link>
-        ))}
+
+      {/* 카테고리 그리드 */}
+      <div className="max-w-4xl mx-auto px-4 pb-10">
+        <h2 className="text-lg font-extrabold text-gray-900 mb-4">카테고리</h2>
+       <div className="grid grid-cols-3 gap-4">
+  {CATEGORIES.map((cat) => (
+    <Link href={`/category/${cat.name}`} key={cat.name}>
+      <div className="bg-white border border-gray-100 rounded-2xl p-7 cursor-pointer hover:shadow-md hover:border-orange-200 transition-all duration-150 group">
+        <div className="text-5xl mb-4">{cat.icon}</div>
+        <p className="text-gray-900 text-xl font-extrabold group-hover:text-orange-500 transition">{cat.name}</p>
+        <p className="text-gray-400 text-sm mt-1">{cat.desc}</p>
+      </div>
+    </Link>
+  ))}
+</div>
       </div>
     </main>
   );
