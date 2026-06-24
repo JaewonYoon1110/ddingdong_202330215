@@ -10,9 +10,12 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading) return;
+    setLoading(true);
 
     if (isLogin) {
       const result = await signIn('credentials', {
@@ -45,6 +48,7 @@ export default function LoginPage() {
         alert(data.message);
       }
     }
+    setLoading(false);
   };
 
   return (
@@ -87,13 +91,15 @@ export default function LoginPage() {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition"
+          disabled={loading}
+          className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition disabled:bg-gray-400"
         >
-          {isLogin ? '로그인' : '가입하기'}
+          {isLogin ? '로그인' : loading ? '가입 중...' : '가입하기'}
         </button>
       </form>
       <div className="mt-4 text-center">
         <button
+          type="button"
           onClick={() => setIsLogin(!isLogin)}
           className="text-sm text-blue-600 hover:underline"
         >
